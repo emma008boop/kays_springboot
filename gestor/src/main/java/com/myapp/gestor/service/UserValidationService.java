@@ -15,5 +15,5 @@ public class UserValidationService {
         if (!passwordEncoder.matches(password, dbPassword)){
             throw new InvalidCredentialsException("The password you entered is incorrect");
         }
-    };
+    }
 }

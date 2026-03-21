@@ -28,10 +28,10 @@ public class UserService implements UserServiceInterface {
         validationService.validatePassword(request.password(), user.getPasswordHash());
 
         repository.delete(user);
-        return new UserDeleteAccountResponse();
-    };
+        return new UserDeleteAccountResponse("User deleted successfully");
+    }
 
-    public UserUpdateAccountResponse updateAccount(UserUpdateAccountRequest request){
+    public UserUpdateAccountResponse updateAccount(Long id, UserUpdateAccountRequest request) {
         User user = repository.findByEmail(request.email())
                 .orElseThrow(() -> new EmailNotFoundException("User isn't registered"));
 
@@ -42,5 +42,5 @@ public class UserService implements UserServiceInterface {
 
         repository.save(user);
         return new UserUpdateAccountResponse(user.getEmail(), "was successfully updated");
-    };
+    }
 }
