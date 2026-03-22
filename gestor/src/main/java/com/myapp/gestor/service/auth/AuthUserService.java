@@ -1,17 +1,17 @@
 package com.myapp.gestor.service.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.myapp.gestor.dto.auth.LoginUserRequest;
 import com.myapp.gestor.dto.auth.LoginUserResponse;
 import com.myapp.gestor.dto.auth.RegisterUserRequest;
 import com.myapp.gestor.dto.auth.RegisterUserResponse;
 import com.myapp.gestor.exception.EmailNotFoundException;
-import com.myapp.gestor.exception.InvalidCredentialsException;
 import com.myapp.gestor.model.User;
 import com.myapp.gestor.repository.UserRepository;
 import com.myapp.gestor.service.UserValidationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class AuthUserService implements AuthUserServiceInterface {
@@ -23,8 +23,8 @@ public class AuthUserService implements AuthUserServiceInterface {
     @Autowired
     private UserValidationService validationService;
 
-    public RegisterUserResponse register (RegisterUserRequest dto){
-        if (repository.existsByEmail(dto.email())){
+    public RegisterUserResponse register(RegisterUserRequest dto) {
+        if (repository.existsByEmail(dto.email())) {
             throw new EmailNotFoundException("You can't use the email:" + dto.email() + "cause already exists");
         }
         User user = new User();
@@ -35,7 +35,7 @@ public class AuthUserService implements AuthUserServiceInterface {
         return new RegisterUserResponse(dto.email());
     }
 
-    public LoginUserResponse login (LoginUserRequest dto){
+    public LoginUserResponse login(LoginUserRequest dto) {
         User user = repository.findByEmail(dto.email())
                 .orElseThrow(() -> new EmailNotFoundException("The following email:" + dto.email() + "was not found"));
         validationService.validatePassword(dto.password(), user.getPasswordHash());
