@@ -10,7 +10,6 @@ TECH STACK
 *   **Security:** Spring Security (JWT / OAuth2)
 *   **Data Base:** MySQL
 *   **Persistency:** Spring Data JPA / Hibernate
-*   **Documentation:** Swagger / OpenAPI UI
 *   **Dependencies gestor:** Gradle
 
 ---
@@ -26,7 +25,7 @@ Installation and local use.
 Pre-required
 *   JDK 17 or higher.
 *   MySQL intalled and running.
-*   Maven.
+*   Gradle.
 
 STEPS
 1. **Clone the repository:**
