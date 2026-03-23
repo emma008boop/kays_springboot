@@ -46,9 +46,9 @@ public class UserProfile {
     private User user;
 
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE)
-    private List<Items> items;
+    private List<Item> items;
 
-    public void updateStrake() {
+    public void updateStreak() {
         LocalDate today = LocalDate.now();
 
         if (lastActivityDate == null) {

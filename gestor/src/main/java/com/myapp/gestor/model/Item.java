@@ -1,12 +1,27 @@
 package com.myapp.gestor.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-import org.hibernate.validator.constraints.URL;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import org.hibernate.validator.constraints.URL;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @NoArgsConstructor
@@ -14,17 +29,16 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table (name = "items")
-public class Items {
+@Table(name = "items")
+public class Item {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @NotBlank(message = "Item's description is required")
     private String description;
 
-    @NotBlank(message = "This item needs to have a price")
+    @Positive
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
