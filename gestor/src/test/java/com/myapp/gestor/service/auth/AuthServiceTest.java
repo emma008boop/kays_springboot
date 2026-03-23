@@ -1,10 +1,13 @@
 package com.myapp.gestor.service.auth;
 
-import com.myapp.gestor.dto.auth.LoginUserRequest;
-import com.myapp.gestor.dto.auth.LoginUserResponse;
-import com.myapp.gestor.exception.EmailNotFoundException;
-import com.myapp.gestor.model.User;
-import com.myapp.gestor.repository.UserRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,12 +15,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.util.Optional;
-
-import static org.mockito.Mockito.when;
+import com.myapp.gestor.dto.auth.LoginUserRequest;
+import com.myapp.gestor.dto.auth.LoginUserResponse;
+import com.myapp.gestor.exception.EmailNotFoundException;
+import com.myapp.gestor.model.User;
+import com.myapp.gestor.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
 class AuthServiceTest {
@@ -54,7 +56,6 @@ class AuthServiceTest {
         when(repository.findByEmail("ghostemail@gmail.com")).thenReturn(Optional.empty());
 
         assertThrows(EmailNotFoundException.class, () -> service.login(request));
-
 
     }
 }
