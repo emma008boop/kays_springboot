@@ -1,6 +1,5 @@
 package com.myapp.gestor.service.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +12,15 @@ import com.myapp.gestor.model.User;
 import com.myapp.gestor.repository.UserRepository;
 import com.myapp.gestor.service.UserValidationService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AuthUserService implements AuthUserServiceInterface {
 
-    @Autowired
-    private UserRepository repository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserValidationService validationService;
+    private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserValidationService validationService;
 
     public RegisterUserResponse register(RegisterUserRequest dto) {
         if (repository.existsByEmail(dto.email())) {

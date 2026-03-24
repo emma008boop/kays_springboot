@@ -1,6 +1,5 @@
 package com.myapp.gestor.service.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myapp.gestor.dto.User.UserDeleteAccountRequest;
@@ -12,13 +11,14 @@ import com.myapp.gestor.model.User;
 import com.myapp.gestor.repository.UserRepository;
 import com.myapp.gestor.service.UserValidationService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserServiceInterface {
 
-    @Autowired
-    private UserRepository repository;
-    @Autowired
-    private UserValidationService validationService;
+    private final UserRepository repository;
+    private final UserValidationService validationService;
 
     public UserDeleteAccountResponse deleteAccount(UserDeleteAccountRequest request) {
         User user = repository.findByEmail(request.email())
