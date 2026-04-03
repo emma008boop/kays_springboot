@@ -7,6 +7,7 @@ import com.myapp.gestor.dto.User.UserUpdateAccountResponse;
 
 public interface UserServiceInterface {
     UserDeleteAccountResponse deleteAccount(UserDeleteAccountRequest request);
+
     UserUpdateAccountResponse updateAccount(Long id, UserUpdateAccountRequest request);
 
 }
