@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myapp.gestor.dto.profile.CurrencyRequestDTO;
@@ -31,7 +33,7 @@ public class UserProfileController {
     }
 
     @PostMapping("/currency")
-    public ResponseEntity<CurrencyResponseDTO> setCurrency(@PathVariable Long id, CurrencyRequestDTO dto) {
+    public ResponseEntity<CurrencyResponseDTO> setCurrency(@PathVariable Long id, @RequestBody CurrencyRequestDTO dto) {
         CurrencyResponseDTO response = profileService.setCurrency(dto);
 
         return ResponseEntity.ok(response);
@@ -39,7 +41,7 @@ public class UserProfileController {
 
     @GetMapping("/list-items")
     public ResponseEntity<UserProfileListItemsResponse> listItems(@PathVariable Long id,
-            UserProfileListItemsRequest dto) {
+            @RequestParam UserProfileListItemsRequest dto) {
         UserProfileListItemsResponse response = profileService.listItems(dto);
 
         return ResponseEntity.ok(response);
