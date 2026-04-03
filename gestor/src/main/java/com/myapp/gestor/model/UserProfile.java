@@ -63,10 +63,14 @@ public class UserProfile {
 
             if (dayBetween == 1) {
                 this.streaks++;
-            } else if (dayBetween > 2) {
+            } else if (dayBetween == 0) {
+
+                return;
+            } else {
                 this.streaks = 1;
                 this.streakStartedDate = today;
             }
+
         }
         this.lastActivityDate = today;
     }

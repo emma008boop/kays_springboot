@@ -42,4 +42,5 @@ public class UserService implements UserServiceInterface {
         repository.save(user);
         return new UserUpdateAccountResponse(user.getEmail(), "was successfully updated");
     }
+
 }

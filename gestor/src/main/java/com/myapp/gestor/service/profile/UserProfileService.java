@@ -4,7 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.myapp.gestor.dto.profile.UserProfileDTO;
+import com.myapp.gestor.dto.profile.CurrencyRequestDTO;
+import com.myapp.gestor.dto.profile.CurrencyResponseDTO;
 import com.myapp.gestor.dto.profile.UserProfileListItemsRequest;
 import com.myapp.gestor.dto.profile.UserProfileListItemsResponse;
 import com.myapp.gestor.exception.UserNotFoundException;
@@ -26,25 +27,21 @@ public class UserProfileService implements UserProfileServiceInterface {
 
     @Override
     @Transactional
-    public UserProfileDTO updateStreakByUser(Long id) {
+    public void updateStreakByUser(Long id) {
         UserProfile profile = findEntityByUserId(id);
 
         profile.updateStreak();
-
-        UserProfile saved = profileRepository.save(profile);
-
-        return new UserProfileDTO(saved);
     }
 
     @Override
     @Transactional
-    public UserProfileDTO setCurrency(String currency, Long id) {
-        UserProfile profile = findEntityByUserId(id);
+    public CurrencyResponseDTO setCurrency(CurrencyRequestDTO dto) {
+        UserProfile profile = findEntityByUserId(dto.id());
 
-        profile.setCurrency(currency);
-        UserProfile saved = profileRepository.save(profile);
+        profile.setCurrency(dto.currency());
+        profileRepository.save(profile);
 
-        return new UserProfileDTO(saved);
+        return new CurrencyResponseDTO(dto.currency());
     }
 
     @Override
