@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.hibernate.annotations.BatchSize;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,6 +48,7 @@ public class UserProfile {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "userProfile", cascade = CascadeType.REMOVE)
     private List<Item> items;
 

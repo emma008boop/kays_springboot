@@ -1,8 +1,12 @@
 package com.myapp.gestor.service.profile;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myapp.gestor.dto.profile.UserProfileDTO;
+import com.myapp.gestor.dto.profile.UserProfileListItemsRequest;
+import com.myapp.gestor.dto.profile.UserProfileListItemsResponse;
 import com.myapp.gestor.exception.UserNotFoundException;
 import com.myapp.gestor.model.User;
 import com.myapp.gestor.model.UserProfile;
@@ -10,13 +14,13 @@ import com.myapp.gestor.repository.UserProfileRepository;
 import com.myapp.gestor.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class UserProfileService implements UserProfileServiceInterface {
 
+    private final UserProfileRepository userProfileRepository;
     private final UserProfileRepository profileRepository;
     private final UserRepository userRepository;
 
@@ -41,6 +45,16 @@ public class UserProfileService implements UserProfileServiceInterface {
         UserProfile saved = profileRepository.save(profile);
 
         return new UserProfileDTO(saved);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserProfileListItemsResponse listItems(UserProfileListItemsRequest dto) {
+        findEntityByUserId(dto.id());
+
+        Page<UserProfile> itemsPage = userProfileRepository.findAllItems(dto.pageable());
+
+        return new UserProfileListItemsResponse(itemsPage);
     }
 
     private UserProfile findEntityByUserId(Long id) {
