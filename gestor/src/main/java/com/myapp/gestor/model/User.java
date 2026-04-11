@@ -27,6 +27,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String username;
+
     @NotBlank(message = "email is required")
     @Column(unique = true)
     private String email;
