@@ -1,0 +1,31 @@
+# --- JAVA & Spring Boot ---
+/target/
+/build/
+/out/
+*.class
+*.jar
+*.war
+*.ear
+application.properties
+# --- IDEs ---
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.nbworkspace
+.nbrescan
+
+# --- Sensitive Data ---
+# Si decides usar la estrategia de ignorar el real y subir el .example
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# --- System ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+/logs/
