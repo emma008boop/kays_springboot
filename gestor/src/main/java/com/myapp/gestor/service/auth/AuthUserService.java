@@ -27,11 +27,14 @@ public class AuthUserService implements AuthUserServiceInterface {
             throw new EmailNotFoundException("You can't use the email:" + dto.email() + "cause already exists");
         }
         User user = new User();
+        user.setUsername(dto.username());
         user.setEmail(dto.email());
         String passwordHashed = passwordEncoder.encode(dto.passwordHash());
         user.setPasswordHash(passwordHashed);
 
-        return new RegisterUserResponse(dto.email());
+        repository.save(user);
+
+        return new RegisterUserResponse(dto.username(), dto.email());
     }
 
     public LoginUserResponse login(LoginUserRequest dto) {

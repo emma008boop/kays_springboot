@@ -31,7 +31,7 @@ public class UserProfileController {
     }
 
     @PostMapping("/currency")
-    public ResponseEntity<CurrencyResponseDTO> setCurrency(@PathVariable Long id, CurrencyRequestDTO dto) {
+    public ResponseEntity<CurrencyResponseDTO> setCurrency(@PathVariable Long id, @RequestBody CurrencyRequestDTO dto) {
         CurrencyResponseDTO response = profileService.setCurrency(dto);
 
         return ResponseEntity.ok(response);
@@ -39,7 +39,7 @@ public class UserProfileController {
 
     @GetMapping("/list-items")
     public ResponseEntity<UserProfileListItemsResponse> listItems(@PathVariable Long id,
-            UserProfileListItemsRequest dto) {
+            @RequestParam UserProfileListItemsRequest dto) {
         UserProfileListItemsResponse response = profileService.listItems(dto);
 
         return ResponseEntity.ok(response);

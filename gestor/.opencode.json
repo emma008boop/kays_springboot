@@ -1,0 +1,19 @@
+{
+  "name": "myapp",
+  "version": "0.0.1-SNAPSHOT",
+  "language": "java",
+  "framework": "springboot",
+  "build_tool": "gradle",
+  "artifact_path": "build/libs/myapp-0.0.1-SNAPSHOT.jar",
+  "scripts": {
+    "build": "./gradlew clean bootJar -x test",
+    "run": "java -jar build/libs/myapp-0.0.1-SNAPSHOT.jar"
+  },
+  "env": {
+    "JAVA_VERSION": "17"
+  },
+  "model": "ollama/deepseek-coder-v2:16b",
+  "provider": "ollama",
+  "base_url": "http://localhost:11434/v1",
+  "api_key": "ollama"
+} 
