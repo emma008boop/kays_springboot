@@ -1,6 +1,7 @@
 package com.myapp.gestor.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.URL;
@@ -52,6 +53,8 @@ public class Item {
 
     @Column(columnDefinition = "TINYINT")
     private Integer needLevel;
+
+    private LocalDate created_at;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
