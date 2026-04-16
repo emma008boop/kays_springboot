@@ -1,7 +1,6 @@
 package com.myapp.gestor.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.URL;
@@ -37,7 +36,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Item's description is required")
+    @NotBlank(message = "The product must have a name")
+    private String name;
+
     private String description;
 
     @Positive
@@ -45,7 +46,11 @@ public class Item {
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
-    private ItemState state;
+    @Builder.Default
+    private ItemState state = ItemState.ABANDONED;
+
+    @Enumerated(EnumType.STRING)
+    private CategoryEnum category;
 
     @URL(message = "Please provide an url")
     @Column(length = 1024)
@@ -54,10 +59,9 @@ public class Item {
     @Column(columnDefinition = "TINYINT")
     private Integer needLevel;
 
-    private LocalDate created_at;
-
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
