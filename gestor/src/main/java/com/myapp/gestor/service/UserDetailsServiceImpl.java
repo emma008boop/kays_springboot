@@ -18,30 +18,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+        private final UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User is not registered"));
+        @Override
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                User user = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new UsernameNotFoundException("User is not registered"));
 
-        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-        user.getRoles()
-                .forEach(role -> authorityList.add(
-                        new SimpleGrantedAuthority("ROLE_".concat(role.getRoleEnum().name()))));
+                List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+                user.getRoles()
+                                .forEach(role -> authorityList.add(
+                                                new SimpleGrantedAuthority("ROLE_".concat(role.getRoleEnum().name()))));
 
-        user.getRoles().stream()
-                .flatMap(role -> role.getPermissionList().stream())
-                .forEach(permission -> authorityList.add(
-                        new SimpleGrantedAuthority(permission.getName())));
+                user.getRoles().stream()
+                                .flatMap(role -> role.getPermissionList().stream())
+                                .forEach(permission -> authorityList.add(
+                                                new SimpleGrantedAuthority(permission.getName())));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPasswordHash(),
-                user.isEnable(),
-                user.isAccountNoExpired(),
-                user.isAccountNoBlocked(),
-                user.isCredentialsNoExpired(),
-                authorityList);
-    }
+                return new org.springframework.security.core.userdetails.User(
+                                user.getUsername(),
+                                user.getPasswordHash(),
+                                user.isEnable(),
+                                user.isAccountNoExpired(),
+                                user.isCredentialsNoExpired(),
+                                user.isAccountNoBlocked(),
+                                authorityList);
+        }
 }

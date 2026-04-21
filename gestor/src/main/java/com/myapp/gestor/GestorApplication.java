@@ -25,6 +25,8 @@ public class GestorApplication {
 	@Bean
 	CommandLineRunner init(UserRepository repository, PasswordEncoder passwordEncoder) {
 		return args -> {
+			if (repository.findByUsername("emma").isPresent())
+				return;
 			Permission createPermission = Permission.builder()
 					.name("CREATE")
 					.build();
