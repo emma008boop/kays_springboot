@@ -12,6 +12,6 @@ import com.myapp.gestor.model.UserProfile;
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
     Optional<UserProfile> findByUserId(Long id);
 
-    @Query("SELECT u FROM UserProfile")
+    @Query("SELECT u FROM UserProfile u")
     Page<UserProfile> findAllItems(Pageable pageable);
 }

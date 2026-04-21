@@ -44,13 +44,17 @@ public class User {
     @NotBlank(message = "password is required")
     private String passwordHash;
 
-    private boolean isEnable;
+    @Builder.Default
+    private boolean isEnable = true;
 
-    private boolean isAccountNoExpired;
+    @Builder.Default
+    private boolean isAccountNoExpired = true;
 
-    private boolean accountNoBlocked;
+    @Builder.Default
+    private boolean accountNoBlocked = true;
 
-    private boolean isCredentialsNoExpired;
+    @Builder.Default
+    private boolean isCredentialsNoExpired = true;
 
     @Builder.Default
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
