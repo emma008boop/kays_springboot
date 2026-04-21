@@ -9,7 +9,7 @@ public interface UserProfileServiceInterface {
 
     void updateStreakByUser(Long id);
 
-    CurrencyResponseDTO setCurrency(CurrencyRequestDTO dto);
+    CurrencyResponseDTO setCurrency(Long id, CurrencyRequestDTO dto);
 
     UserProfileListItemsResponse listItems(UserProfileListItemsRequest dto);
 }

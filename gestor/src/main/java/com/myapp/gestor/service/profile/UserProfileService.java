@@ -35,13 +35,12 @@ public class UserProfileService implements UserProfileServiceInterface {
 
     @Override
     @Transactional
-    public CurrencyResponseDTO setCurrency(CurrencyRequestDTO dto) {
-        UserProfile profile = findEntityByUserId(dto.id());
+    public CurrencyResponseDTO setCurrency(Long id, CurrencyRequestDTO dto) {
+        UserProfile profile = findEntityByUserId(id);
 
         profile.setCurrency(dto.currency());
-        profileRepository.save(profile);
 
-        return new CurrencyResponseDTO(dto.currency());
+        return new CurrencyResponseDTO(profile.getCurrency());
     }
 
     @Override
