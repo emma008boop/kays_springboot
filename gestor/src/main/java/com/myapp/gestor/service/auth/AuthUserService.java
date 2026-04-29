@@ -40,6 +40,7 @@ public class AuthUserService implements AuthUserServiceInterface {
     public LoginUserResponse login(LoginUserRequest dto) {
         User user = repository.findByEmail(dto.email())
                 .orElseThrow(() -> new EmailNotFoundException("The following email:" + dto.email() + "was not found"));
+
         validationService.validatePassword(dto.password(), user.getPasswordHash());
 
         return new LoginUserResponse("The login has been successfully done");

@@ -14,7 +14,7 @@ public class UserValidationService {
     private final PasswordEncoder passwordEncoder;
 
     public void validatePassword(String dbPassword, String password) {
-        if (!passwordEncoder.matches(password, dbPassword)) {
+        if (!passwordEncoder.matches(dbPassword, password)) {
             throw new InvalidCredentialsException("The password you entered is incorrect");
         }
     }
